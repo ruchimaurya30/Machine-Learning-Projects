@@ -1,0 +1,145 @@
+Amazon Product Reviews Sentiment Analysis.
+
+Step into the bustling realm of e-commerce wonders, where you'll embark on an enthralling journey through the world of sentiment analysis. Just as shopaholics rely on platforms like Amazon to discover their 
+favorite products and explore new treasures, you'll become a sentiment virtuoso, ready to unlock the hidden emotions within this vast sea of product reviews.
+
+Your adventure begins with a mission as crucial as setting the stage for a shopping extravaganza—cleaning the dataset. Picture yourself as the curator, meticulously ensuring that every product review is 
+perfectly framed, preparing the data for an emotional masterpiece. It's all about creating the ideal canvas for a data-driven retail saga.
+
+Once the dataset shines brightly, you'll plunge into the heart of this e-commerce universe—data analysis. Here, you become the retail critic, deciphering what makes a product review resonate with customers, 
+trends in consumer preferences, and unveiling the secrets behind purchasing decisions. This journey is all about transforming raw data into captivating retail insights.
+
+As the project unfolds, you'll emerge as the unsung hero behind the scenes. Just like a bustling retail team working tirelessly to create unforgettable shopping experiences, your work will enhance the product 
+experience for online shoppers. Your insights will help consumers find the perfect products for their needs, and sellers will gain valuable insights to offer better shopping experiences.
+
+In this world of data-driven retail, you are the curator, the data wizard, and the storyteller. Your dedication to cleaning, analyzing, and implementing sentiment analysis adds to the magic of online shopping, 
+making every purchase extraordinary. Your journey is one of data, commerce, and endless possibilities.
+
+This project is your opportunity to delve into the fascinating realm of sentiment analysis, using the natural language toolkit (nltk) machine learning library. Armed with a dataset of Amazon product reviews, 
+you'll unravel the secrets of consumer sentiment and provide online shoppers with insights that will leave them spellbound. Get ready to embark on this interactive retail data adventure, where you'll craft 
+shopping insights and unlock the true potential of these captivating reviews.
+
+
+Task 1: Decoding Amazon Reviews.
+In the digital age, understanding consumer sentiment is paramount. This task empowers us to decipher Amazon's vast ocean of product reviews, unlocking the key to customer preferences. By developing a sentiment 
+analysis model, we gain insights to enhance product offerings and user experiences. It's not just data; it's a pathway to better decisions, improved products, and delighted customers. In this journey, data 
+becomes the director, and we, the storytellers, illuminate the path to success. With each line of code, we shape a future where data-driven decisions reign supreme, making the world of e-commerce an 
+ever-evolving cinematic marvel.
+
+#--- Import Pandas ---
+import pandas as pd
+#--- Read in dataset ----
+df = pd.read_csv('Reviews.csv')
+df
+# ---WRITE YOUR CODE FOR TASK 1 ---
+#--- Inspect data ---
+Id	ProductId	UserId	ProfileName	HelpfulnessNumerator	HelpfulnessDenominator	Score	Time	Summary	Text
+0	1	B001E4KFG0	A3SGXH7AUHU8GW	delmartian	1	1	5.0	1303862400	Good Quality Dog Food	I have bought several of the Vitality canned d...
+1	2	B00813GRG4	A1D87F6ZCVE5NK	dll pa	0	0	1.0	1346976000	Not as Advertised	Product arrived labeled as Jumbo Salted Peanut...
+2	3	B000LQOCH0	ABXLMWJIXXAIN	Natalia Corres "Natalia Corres"	1	1	4.0	1219017600	"Delight" says it all	This is a confection that has been around a fe...
+3	4	B000UA0QIQ	A395BORC6FGVXV	Karl	3	3	2.0	1307923200	Cough Medicine	If you are looking for the secret ingredient i...
+4	5	B006K2ZZ7K	A1UQRSCLF8GW1T	Michael D. Bigham "M. Wassir"	0	0	5.0	1350777600	Great taffy	Great taffy at a great price. There was a wid...
+...	...	...	...	...	...	...	...	...	...	...
+4998	4999	B00653KJ5M	A3POAWC2JPQQQP	me	0	0	4.0	1342137600	they are good (except for the "rainforest" fla...	These taste very good, but aren't like the BES...
+4999	5000	B00653KJ5M	A122CSYJ3YSKI0	Shaimun	0	0	5.0	1337990400	Great Healthy Snack!	I love these cookies. I am on the paleo diet r...
+5000	5001	B00653KJ5M	AFDTKXT1I8C0K	Darcie Wige	0	0	5.0	1331856000	Cave Man Cookies Are Crazy Good!	I thought I'd try the multi-pack to see which ...
+5001	5002	B00653KJ5M	A4YDTPAUUFGV2	Shell	0	0	5.0	1328486400	perfect for sweet tooth just coming off gluten	i just started the paleo diet and i love it! l...
+5002	5003	B00653KJ5M	A2IMM1IOY8Y36C	Emma McCreary "cheekyboots"	1	2	1.0	1333497600	taste just awful!	I've been Paleo for six months, as has my part...
+5003 rows × 10 columns
+
+
+Task 2: Preparing for Sentiment Analysis.
+As the code executes, the story of your sentiment analysis project takes an essential turn. You've embarked on the crucial task of data cleansing, just like the meticulous editing process in filmmaking, 
+ensuring that every scene is flawless.
+
+This code plays a vital role in this narrative. It's the scene where you remove any rows with missing values, ensuring your dataset is pristine. Just as a director trims unnecessary shots, you're trimming 
+the data for a more focused analysis.
+
+# --- WRITE YOUR CODE FOR TASK 2 ---
+df.dropna(inplace=True)
+​
+#--- Inspect data ---
+
+
+Task 3: Visualizing Sentiments.
+In this cinematic data voyage, your code paints a vivid picture of Amazon product ratings. Like a masterful film director, you've harnessed Seaborn and Matplotlib to create a compelling visualization. The pie 
+chart showcases the distribution of ratings, providing a snapshot of customer sentiment. It's a pivotal scene in our narrative, offering a visually striking revelation to our audience. Just as a film's visuals 
+set the stage for the climax, this chart teases the sentiments that will shape the rest of our data analysis. With this artful presentation, we are now primed to delve deeper into the world of Amazon product 
+reviews.
+
+# import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+# --- WRITE YOUR CODE FOR TASK 3 ---
+#---counting the exact rating occurance
+ratings = df['Score'].value_counts()
+​
+#---variables to hold rating values and their counts
+numbers = ratings.index.tolist()
+quantity = ratings.values.tolist()
+​
+custom_colors = ["skyblue", "yellowgreen", 'tomato', "blue", "red"]
+plt.figure(figsize=(10, 8))
+plt.pie(quantity, labels=numbers, colors=custom_colors)
+central_circle = plt.Circle((0, 0), 0.5, color='white')
+fig = plt.gcf()
+fig.gca().add_artist(central_circle)
+plt.rc('font', size=12)
+plt.title("Distribution of Amazon Product Ratings", fontsize=20)
+plt.show()
+#--- Inspect data ---
+
+
+Task 4: Exploring Amazon Product Reviews.
+In this pivotal chapter of our sentiment analysis journey, you've harnessed NLTK's SentimentIntensityAnalyzer to unveil the intricate emotions within Amazon product reviews. Just as a skilled director uncovers 
+the depths of their characters, you've introduced "Positive," "Negative," and "Neutral" columns, providing a multidimensional perspective to the narrative. These columns serve as the main characters in our data 
+story, capturing the sentiment nuances within each review.
+
+As you continue to sculpt the dataset, it transforms into a dynamic character, ready to disclose the rich tapestry of emotions hidden within Amazon's treasure trove of reviews. This endeavor is akin to 
+revealing a thrilling plot twist, making each review a unique element in the story. Stay tuned for the unfolding chapters, as we delve deeper into the world of sentiment analysis, shedding light on the 
+uncharted territories of customer sentiment in e-commerce.
+
+# Uncommented the below code and run once. After the code is excecuted, please commented the below code
+# import nltk
+# nltk.download('vader_lexicon')
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+sentiments = SentimentIntensityAnalyzer()
+# --- WRITE YOUR CODE FOR TASK 4 ---
+# define a function to compute sentiment scores
+def sentiment_scores(Text):
+    scores = sentiments.polarity_scores(Text)
+    return scores['pos'], scores['neg'], scores['neu']
+​
+# apply the function to each row in the text column and create new column
+df[['Positive', 'Negative', 'Neutral']] = df['Text'].apply(lambda x : pd.Series(sentiment_scores(x)))
+​
+​
+#--- Inspect data ---
+
+
+Task 5: Unmasking Amazon's Dominant Emotion.
+In this project's defining moment, your code performs an emotional symphony, summing up the sentiments found within Amazon product reviews. Like a masterful film's climax, you've skillfully identified the 
+dominant sentiment category, be it positive, negative, or neutral.
+
+The variable 'sent' stands as the revelation, embodying the majority sentiment among these reviews, adding an exhilarating twist to our data journey. It's akin to uncovering the protagonist of a thrilling tale.
+
+With this critical insight in hand, your narrative takes a bold step towards understanding the overarching sentiments within Amazon's vast sea of reviews, much like a movie unveiling the grand theme at its 
+core. This is the turning point, and the ensuing scenes promise to be both enlightening and captivating.
+
+# --- WRITE YOUR CODE FOR TASK 5 ---
+# sentiment = ...
+x = df['Positive'].sum()
+y = df['Negative'].sum()
+z = df['Neutral'].sum()
+​
+# compare the sums to determine the overall sentiment
+if x > y and x > z:
+    sentiment = 'Positive'
+    
+if y > x and y > z:
+    sentiment = 'Negative'
+    
+else:
+    sentiment = 'Neutral'
+​
+#--- Inspect data ---
+​
